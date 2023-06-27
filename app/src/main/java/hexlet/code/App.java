@@ -2,17 +2,46 @@ package hexlet.code;
 
 import picocli.CommandLine;
 
+import java.nio.file.Path;
 import java.util.concurrent.Callable;
 
-@CommandLine.Command(name = "gendiff", mixinStandardHelpOptions = true,
+
+@CommandLine.Command(name = "gendiff",
+        mixinStandardHelpOptions = true,
         description = "Compares two configuration files and shows a difference.")
-public class App implements Callable<Object> {
+public class App implements Callable<Object> {      // если нужен результат выполнения, то callable если нет runnable.
+    @CommandLine.Option(names = {"-f", "--format"},
+            required = true,
+            defaultValue = "stylish",
+            description = "output format [default: ${DEFAULT-VALUE}]")
+    private String format;
+
+    @CommandLine.Parameters(paramLabel = "filepath1",
+          //  defaultValue = "src/main/java/resources/file1.json",
+            description = "path to first file")
+    private Path path1;
+
+    @CommandLine.Parameters(paramLabel = "filepath2",
+       //     defaultValue = "src/main/java/resources/file2.json",
+            description = "path to second file")
+    private Path path2;
+
     public static void main(String[] args) {
         new CommandLine(new App()).execute(args);
     }
 
     @Override
     public Object call() {
-        return null;
+        String result = "";
+        try {
+            System.out.println(path1);
+            System.out.println(path2);
+
+//            result = Differ.generate(path1, path, format);
+//            System.out.println(result);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return result;
     }
 }
