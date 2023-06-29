@@ -5,7 +5,6 @@ import picocli.CommandLine;
 import java.nio.file.Path;
 import java.util.concurrent.Callable;
 
-
 @CommandLine.Command(name = "gendiff",
         mixinStandardHelpOptions = true,
         description = "Compares two configuration files and shows a difference.")
@@ -17,12 +16,12 @@ public class App implements Callable<Object> {      // если нужен ре�
     private String format;
 
     @CommandLine.Parameters(paramLabel = "filepath1",
-          //  defaultValue = "src/main/java/resources/file1.json",
+            //  defaultValue = "src/main/resources/file1.json",
             description = "path to first file")
     private Path path1;
 
     @CommandLine.Parameters(paramLabel = "filepath2",
-       //     defaultValue = "src/main/java/resources/file2.json",
+            //     defaultValue = "src/main/resources/file2.json",
             description = "path to second file")
     private Path path2;
 
@@ -32,13 +31,14 @@ public class App implements Callable<Object> {      // если нужен ре�
 
     @Override
     public Object call() {
-        String result = "";
+        String result;
         try {
-            System.out.println(path1);
-            System.out.println(path2);
-
-//            result = Differ.generate(path1, path, format);
-//            System.out.println(result);
+            Path p1 = path1.toAbsolutePath().normalize();
+            Path p2 = path2.toAbsolutePath().normalize();
+//            System.out.println(p1);
+//            System.out.println(p2);
+            result = Differ.generate(p1, p2, format);
+            System.out.println(result);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
