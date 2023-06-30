@@ -14,37 +14,37 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class Differ {
-    private static StringBuilder resultString = new StringBuilder();
-    private static Map<String, Object> map1 = new TreeMap<>();
-    private static Map<String, Object> map2 = new TreeMap<>();
+    private static final StringBuilder RESULT_STRING = new StringBuilder();
+    private static final Map<String, Object> MAP_1 = new TreeMap<>();
+    private static final Map<String, Object> MAP_2 = new TreeMap<>();
 
-    public static String generate(Path file1, Path file2, String format) throws IOException {
-        String stringOutOfPath1 = getStringOutOfPath(file1);
-        String stringOutOfPath2 = getStringOutOfPath(file2);
-//        System.out.println("fileAsString1 = " + fileAsString1+ "END1");
-//        System.out.println("fileAsString2 = " + fileAsString2 + "END2");
-        map1.putAll(getInfoFromStringToMap(stringOutOfPath1));
-        map2.putAll(getInfoFromStringToMap(stringOutOfPath2));
+    public static String generate(Path path1, Path path2, String format) throws IOException {
+        String stringOutOfPath1 = getStringOutOfPath(path1);
+        String stringOutOfPath2 = getStringOutOfPath(path2);
+//        System.out.println("stringOutOfPath1 = " + fileAsString1+ "END1");
+//        System.out.println("stringOutOfPath2 = " + fileAsString2 + "END2");
+        MAP_1.putAll(getInfoFromStringToMap(stringOutOfPath1));
+        MAP_2.putAll(getInfoFromStringToMap(stringOutOfPath2));
 //        System.out.println("Map1 = " + map1 + "END");
 //        System.out.println("Map2 = " + map2 + "END");
-        resultString.delete(0, resultString.length());
+        RESULT_STRING.delete(0, RESULT_STRING.length());
 //        System.out.println("resultString = " + resultString + "END");
-        resultString.append("{\n");
+        RESULT_STRING.append("{\n");
         for (String entry : mergeMapsToList()) {
             String replacer = entry.replace("=", " : ");
-            resultString.append(replacer).append("\n");
+            RESULT_STRING.append(replacer).append("\n");
         }
-        resultString.append("}");
-        return resultString.toString();
+        RESULT_STRING.append("}");
+        return RESULT_STRING.toString();
     }
 
     private static String getStringOutOfPath(Path path) throws IOException {
-        resultString.delete(0, resultString.length());
+        RESULT_STRING.delete(0, RESULT_STRING.length());
         List<String> lines = Files.readAllLines(path);
         for (String line : lines) {
-            resultString.append(line).append("\n");
+            RESULT_STRING.append(line).append("\n");
         }
-        return resultString.toString();
+        return RESULT_STRING.toString();
     }
 
     private static Map<String, Object> getInfoFromStringToMap(String info) throws IOException {
@@ -54,7 +54,7 @@ public class Differ {
     }
 
     private static List<String> mergeMapsToList() {
-        return Stream.concat(map1.entrySet().stream(), map2.entrySet().stream())
+        return Stream.concat(MAP_1.entrySet().stream(), MAP_2.entrySet().stream())
                 .distinct()
                 .sorted(Map.Entry.comparingByKey())
                 .map(Differ::addDifferenceSingToResult)
@@ -62,14 +62,14 @@ public class Differ {
     }
 
     private static String addDifferenceSingToResult(Map.Entry<String, Object> entry) {
-        if (map1.containsKey(entry.getKey()) && map2.containsKey(entry.getKey())) {
-            if (map1.get(entry.getKey()).equals(map2.get(entry.getKey()))) {
+        if (MAP_1.containsKey(entry.getKey()) && MAP_2.containsKey(entry.getKey())) {
+            if (MAP_1.get(entry.getKey()).equals(MAP_2.get(entry.getKey()))) {
                 return "  " + entry;
             }
         }
-        if (map1.entrySet().contains(entry)) {
+        if (MAP_1.entrySet().contains(entry)) {
             return "- " + entry;
-        } else if (map2.entrySet().contains(entry)) {
+        } else if (MAP_2.entrySet().contains(entry)) {
             return "+ " + entry;
         }
         return "  " + entry;
