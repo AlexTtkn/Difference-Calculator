@@ -8,7 +8,7 @@ import java.util.concurrent.Callable;
 @CommandLine.Command(name = "gendiff",
         mixinStandardHelpOptions = true,
         description = "Compares two configuration files and shows a difference.")
-public class App implements Callable<Object> {      // если нужен результат выполнения, то callable если нет runnable.
+public class App implements Callable<Object> {
     @CommandLine.Option(names = {"-f", "--format"},
             required = true,
             defaultValue = "stylish",
@@ -16,12 +16,10 @@ public class App implements Callable<Object> {      // если нужен ре�
     private String format;
 
     @CommandLine.Parameters(paramLabel = "filepath1",
-            //  defaultValue = "src/main/resources/file1.json",
             description = "path to first file")
     private Path path1;
 
     @CommandLine.Parameters(paramLabel = "filepath2",
-            //     defaultValue = "src/main/resources/file2.json",
             description = "path to second file")
     private Path path2;
 
