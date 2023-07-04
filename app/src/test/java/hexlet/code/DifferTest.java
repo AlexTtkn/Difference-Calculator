@@ -9,17 +9,21 @@ import java.util.*;
 
 
 import static hexlet.code.Differ.*;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class DifferTest {
-    private final static Path resourceDirectory1 = Path.of("src/test/resources/testFile1.json").toAbsolutePath().normalize();
-    private final static Path resourceDirectory2 = Path.of("src/test/resources/testFile2.json").toAbsolutePath().normalize();
-    private final static Path wrongResourceDirectory = Path.of("wrongPath");
+    private final static Path RESOURCE_DIRECTORY_1 =
+            Path.of("src/test/resources/testFile1.json").toAbsolutePath().normalize();
+    private final static Path RESOURCE_DIRECTORY_2
+            = Path.of("src/test/resources/testFile2.json").toAbsolutePath().normalize();
+    private final static Path WRONG_PATH = Path.of("wrongPath");
     private static final Map<String, Object> MAP_1 = Map.of("key1", "value1", "key2", "value2");
     private static final Map<String, Object> MAP_2 = Map.of("key2", "value2", "key3", "value3");
 
     @Test
-    public void testGenerate_Valid() throws IOException {
+    public void testGenerateValid() throws IOException {
         String expected = """
                 {
                 - follow : false
@@ -31,18 +35,18 @@ class DifferTest {
                 }
                 """;
 
-        String actual = generate(resourceDirectory1, resourceDirectory2, null);
+        String actual = generate(RESOURCE_DIRECTORY_1, RESOURCE_DIRECTORY_2, null);
         assertEquals(expected, actual);
     }
 
     @Test
-    public void testGenerate_InvalidPath() {
+    public void testGenerateInvalidPath() {
         assertThrows(NoSuchFileException.class, () ->
-                generate(resourceDirectory2, wrongResourceDirectory, null));
+                generate(RESOURCE_DIRECTORY_2, WRONG_PATH, null));
     }
 
     @Test
-    public void testGetStringOutOfPath_Valid() throws IOException {
+    public void testGetStringOutOfPathValid() throws IOException {
         String expected = """
                 {
                   "host": "hexlet.io",
@@ -51,12 +55,12 @@ class DifferTest {
                   "follow": false
                 }
                 """;
-        String actual = getStringOutOfPath(resourceDirectory1);
+        String actual = getStringOutOfPath(RESOURCE_DIRECTORY_1);
         assertEquals(expected, actual);
     }
 
     @Test
-    public void testGetStringOutOfPath_NotEqualsInfo() throws IOException {
+    public void testGetStringOutOfPathNotEqualsInfo() throws IOException {
         String expected = """
                 {
                   "host": "hexlet.io",
@@ -65,12 +69,12 @@ class DifferTest {
                   "follow": false
                 }
                 """;
-        String actual = getStringOutOfPath(resourceDirectory2);
+        String actual = getStringOutOfPath(RESOURCE_DIRECTORY_2);
         assertNotEquals(expected, actual);
     }
 
     @Test
-    public void testGetInfoFromStringToMap_Valid() throws IOException {
+    public void testGetInfoFromStringToMapValid() throws IOException {
         String info = """
                 {
                   "host": "hexlet.io",
@@ -89,7 +93,7 @@ class DifferTest {
     }
 
     @Test
-    public void testGetInfoFromStringToMap_NotEqualsInfo() throws IOException {
+    public void testGetInfoFromStringToMapNotEqualsInfo() throws IOException {
         String info = """
                 {
                   "Alex": "hexlet.io",
@@ -108,35 +112,35 @@ class DifferTest {
     }
 
     @Test
-    public void testMergeMapsToList_Valid() {
+    public void testMergeMapsToListValid() {
         List<String> expectedList = Arrays.asList("- key1=value1", "  key2=value2", "+ key3=value3");
         List<String> actualList = mergeMapsToList(MAP_1, MAP_2);
         assertEquals(expectedList, actualList);
     }
 
     @Test
-    public void testAddDifferenceSignToResult_sameValueInBothMaps() {
+    public void testAddDifferenceSignToResultSameValueInBothMaps() {
         Map.Entry<String, Object> entry = new AbstractMap.SimpleEntry<>("key2", "value2");
         String result = Differ.addSingToResult(entry, MAP_1, MAP_2);
         assertEquals("  key2=value2", result);
     }
 
     @Test
-    public void testAddDifferenceSignToResult_keyOnlyInMap1() {
+    public void testAddDifferenceSignToResultKeyOnlyInMap1() {
         Map.Entry<String, Object> entry = new AbstractMap.SimpleEntry<>("key1", "value1");
         String result = Differ.addSingToResult(entry, MAP_1, MAP_2);
         assertEquals("- key1=value1", result);
     }
 
     @Test
-    public void testAddDifferenceSignToResult_keyOnlyInMap2() {
+    public void testAddDifferenceSignToResultKeyOnlyInMap2() {
         Map.Entry<String, Object> entry = new AbstractMap.SimpleEntry<>("key3", "value3");
         String result = Differ.addSingToResult(entry, MAP_1, MAP_2);
         assertEquals("+ key3=value3", result);
     }
 
     @Test
-    public void testAddDifferenceSignToResult_keyNotPresentInBothMaps() {
+    public void testAddDifferenceSignToResultKeyNotPresentInBothMaps() {
         Map.Entry<String, Object> entry = new AbstractMap.SimpleEntry<>("key4", "value4");
         String result = Differ.addSingToResult(entry, MAP_1, MAP_2);
         assertEquals("  key4=value4", result);
