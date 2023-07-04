@@ -5,7 +5,11 @@ import org.junit.jupiter.api.Test;
 import java.io.IOException;
 import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
-import java.util.*;
+import java.util.Arrays;
+import java.util.Map;
+import java.util.HashMap;
+import java.util.List;
+import java.util.AbstractMap;
 
 
 import static hexlet.code.Differ.*;
@@ -14,11 +18,11 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class DifferTest {
-    private final static Path RESOURCE_DIRECTORY_1 =
+    private static final Path RESOURCE_DIRECTORY_1 =
             Path.of("src/test/resources/testFile1.json").toAbsolutePath().normalize();
-    private final static Path RESOURCE_DIRECTORY_2
+    private static final Path RESOURCE_DIRECTORY_2
             = Path.of("src/test/resources/testFile2.json").toAbsolutePath().normalize();
-    private final static Path WRONG_PATH = Path.of("wrongPath");
+    private static final Path WRONG_PATH = Path.of("wrongPath");
     private static final Map<String, Object> MAP_1 = Map.of("key1", "value1", "key2", "value2");
     private static final Map<String, Object> MAP_2 = Map.of("key2", "value2", "key3", "value3");
 
