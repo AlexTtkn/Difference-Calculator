@@ -36,7 +36,6 @@ dependencies {
 
 test {
     useJUnitPlatform()
-    finalizedBy jacocoTestReport
 }
 
 jacocoTestReport {
@@ -46,6 +45,5 @@ jacocoTestReport {
 }
 
 testlogger {
-    theme 'mocha'
     showStandardStreams true
 }
