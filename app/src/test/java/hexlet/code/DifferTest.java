@@ -12,7 +12,10 @@ import java.util.List;
 import java.util.AbstractMap;
 
 
-import static hexlet.code.Differ.*;
+import static hexlet.code.Differ.generate;
+import static hexlet.code.Differ.getInfoFromStringToMap;
+import static hexlet.code.Differ.getStringOutOfPath;
+import static hexlet.code.Differ.mergeMapsToList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
