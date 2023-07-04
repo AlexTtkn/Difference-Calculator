@@ -22,6 +22,12 @@ application {
     mainClass = 'hexlet.code.App'
 }
 
+jacocoTestReport {
+    reports {
+        xml.required = true
+    }
+}
+
 dependencies {
     implementation group: 'info.picocli', name: 'picocli', version: '4.7.4'
 
