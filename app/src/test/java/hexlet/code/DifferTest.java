@@ -37,9 +37,8 @@ class DifferTest {
 
     @Test
     public void testGenerate_InvalidPath() {
-        assertThrows(NoSuchFileException.class, () -> {
-            generate(resourceDirectory2, wrongResourceDirectory, null);
-        });
+        assertThrows(NoSuchFileException.class, () ->
+                generate(resourceDirectory2, wrongResourceDirectory, null));
     }
 
     @Test

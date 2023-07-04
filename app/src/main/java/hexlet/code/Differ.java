@@ -63,7 +63,6 @@ public class Differ {
         if (map1.containsKey(entry.getKey()) && map2.containsKey(entry.getKey())) {
             if (map1.get(entry.getKey()).equals(map2.get(entry.getKey()))) {
                 return "  " + entry;
-
             }
         }
         if (map1.entrySet().contains(entry)) {
