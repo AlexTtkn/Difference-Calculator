@@ -10,30 +10,27 @@ import java.util.TreeMap;
 import java.util.stream.Stream;
 
 
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 public class Differ {
     private static final StringBuilder RESULT_STRING = new StringBuilder();
 
     public static String generate(Path path1, Path path2, String format) throws IOException {
-        String stringOutOfPath1 = getStringOutOfPath(path1);
-        String stringOutOfPath2 = getStringOutOfPath(path2);
-//        System.out.println("stringOutOfPath1 = " + stringOutOfPath1 + "END1");
-//        System.out.println("stringOutOfPath2 = " + stringOutOfPath1 + "END2");
-        Map<String, Object> map1 = new TreeMap<>(getInfoFromStringToMap(stringOutOfPath1));
-        Map<String, Object> map2 = new TreeMap<>(getInfoFromStringToMap(stringOutOfPath2));
-//        System.out.println("Map1 = " + map1 + "END");
-//        System.out.println("Map2 = " + map2 + "END");
-        RESULT_STRING.delete(0, RESULT_STRING.length());
-//        System.out.println("resultString = " + resultString + "END");
-        RESULT_STRING.append("{\n");
-        for (String entry : mergeMapsToList(map1, map2)) {
-            String replacer = entry.replace("=", " : ");
-            RESULT_STRING.append(replacer).append("\n");
+        String format1 = Parser.getFormat(path1.toString());
+        String format2 = Parser.getFormat(path2.toString());
+
+        if (!checkIfFormatsEquals(format1, format2)) {
+            System.out.println("Your files have a different extension");
+        } else {
+            String stringOutOfPath1 = getStringOutOfPath(path1);
+            String stringOutOfPath2 = getStringOutOfPath(path2);
+            Map<String, Object> map1 = new TreeMap<>(Parser.getInfoAsMap(stringOutOfPath1, format1));
+            Map<String, Object> map2 = new TreeMap<>(Parser.getInfoAsMap(stringOutOfPath2, format2));
+            return getResultString(map1, map2);
         }
-        RESULT_STRING.append("}\n");
-        return RESULT_STRING.toString();
+        return null;
+    }
+
+    static boolean checkIfFormatsEquals(String format1, String format2) {
+        return format1.equals(format2);
     }
 
     static String getStringOutOfPath(Path path) throws IOException {
@@ -43,12 +40,6 @@ public class Differ {
             RESULT_STRING.append(line).append("\n");
         }
         return RESULT_STRING.toString();
-    }
-
-    static Map<String, Object> getInfoFromStringToMap(String info) throws IOException {
-        ObjectMapper mapper = new ObjectMapper();
-        return mapper.readValue(info, new TypeReference<TreeMap<String, Object>>() {
-        });
     }
 
     static List<String> mergeMapsToList(Map<String, Object> map1, Map<String, Object> map2) {
@@ -71,5 +62,16 @@ public class Differ {
             return "+ " + entry;
         }
         return "  " + entry;
+    }
+
+    static String getResultString(Map<String, Object> map1, Map<String, Object> map2) {
+        RESULT_STRING.delete(0, RESULT_STRING.length());
+        RESULT_STRING.append("{\n");
+        for (String entry : mergeMapsToList(map1, map2)) {
+            String replacer = entry.replace("=", " : ");
+            RESULT_STRING.append(replacer).append("\n");
+        }
+        RESULT_STRING.append("}\n");
+        return RESULT_STRING.toString();
     }
 }

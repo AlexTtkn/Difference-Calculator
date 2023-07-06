@@ -4,11 +4,11 @@ run-dist:
 help:
 	./build/install/app/bin/app -h
 
-compare-json:
-	./build/install/app/bin/app src/test/resources/testFile1.json src/test/resources/testFile2.json
-
 build:
-	./gradlew clean build
+	./gradlew build
+
+clean:
+	./gradlew clean
 
 test:
 	./gradlew test

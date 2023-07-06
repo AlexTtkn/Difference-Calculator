@@ -33,8 +33,8 @@ public class App implements Callable<Object> {
         try {
             Path p1 = path1.toAbsolutePath().normalize();
             Path p2 = path2.toAbsolutePath().normalize();
-//            System.out.println(p1);
-//            System.out.println(p2);
+            System.out.println(p1);
+            System.out.println(p2);
             result = Differ.generate(p1, p2, format);
             System.out.println(result);
         } catch (Exception e) {
