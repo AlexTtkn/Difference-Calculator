@@ -13,7 +13,6 @@ import java.util.AbstractMap;
 
 import static hexlet.code.Differ.generate;
 import static hexlet.code.Differ.getStringOutOfPath;
-import static hexlet.code.Differ.mergeMapsToList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -28,39 +27,35 @@ class DifferTest {
     private static final Path RESOURCE_DIRECTORY_4
             = Path.of("src/test/resources/testFile4.yml").toAbsolutePath().normalize();
     private static final Path WRONG_PATH = Path.of("wrongPath");
-    private static final Map<String, Object> MAP_1 = Map.of("key1", "value1", "key2", "value2");
-    private static final Map<String, Object> MAP_2 = Map.of("key2", "value2", "key3", "value3");
 
     @Test
     public void testGenerateValidJson() throws IOException {
         String expected = """
                 {
-                - follow : false
-                  host : hexlet.io
-                - proxy : 123.234.53.22
-                - timeout : 50
-                + timeout : 20
-                + verbose : true
-                }
-                """;
+                 - follow : false
+                   host : hexlet.io
+                 - proxy : 123.234.53.22
+                 - timeout : 50
+                 + timeout : 20
+                 + verbose : true
+                }""";
 
-        String actual = generate(RESOURCE_DIRECTORY_1, RESOURCE_DIRECTORY_2, "json");
+        String actual = generate(RESOURCE_DIRECTORY_1, RESOURCE_DIRECTORY_2, "stylish");
         assertEquals(expected, actual);
     }
     @Test
     public void testGenerateValidYaml() throws IOException {
         String expected = """
                 {
-                - follow : false
-                  host : hexlet.io
-                - proxy : 123.234.53.22
-                - timeout : 50
-                + timeout : 20
-                + verbose : true
-                }
-                """;
+                 - follow : false
+                   host : hexlet.io
+                 - proxy : 123.234.53.22
+                 - timeout : 50
+                 + timeout : 20
+                 + verbose : true
+                }""";
 
-        String actual = generate(RESOURCE_DIRECTORY_3, RESOURCE_DIRECTORY_4, "yml");
+        String actual = generate(RESOURCE_DIRECTORY_3, RESOURCE_DIRECTORY_4, "stylish");
         assertEquals(expected, actual);
     }
 
@@ -99,40 +94,5 @@ class DifferTest {
     }
 
 
-
-    @Test
-    public void testMergeMapsToListValid() {
-        List<String> expectedList = Arrays.asList("- key1=value1", "  key2=value2", "+ key3=value3");
-        List<String> actualList = mergeMapsToList(MAP_1, MAP_2);
-        assertEquals(expectedList, actualList);
-    }
-
-    @Test
-    public void testAddDifferenceSignToResultSameValueInBothMaps() {
-        Map.Entry<String, Object> entry = new AbstractMap.SimpleEntry<>("key2", "value2");
-        String result = Differ.addSingToResult(entry, MAP_1, MAP_2);
-        assertEquals("  key2=value2", result);
-    }
-
-    @Test
-    public void testAddDifferenceSignToResultKeyOnlyInMap1() {
-        Map.Entry<String, Object> entry = new AbstractMap.SimpleEntry<>("key1", "value1");
-        String result = Differ.addSingToResult(entry, MAP_1, MAP_2);
-        assertEquals("- key1=value1", result);
-    }
-
-    @Test
-    public void testAddDifferenceSignToResultKeyOnlyInMap2() {
-        Map.Entry<String, Object> entry = new AbstractMap.SimpleEntry<>("key3", "value3");
-        String result = Differ.addSingToResult(entry, MAP_1, MAP_2);
-        assertEquals("+ key3=value3", result);
-    }
-
-    @Test
-    public void testAddDifferenceSignToResultKeyNotPresentInBothMaps() {
-        Map.Entry<String, Object> entry = new AbstractMap.SimpleEntry<>("key4", "value4");
-        String result = Differ.addSingToResult(entry, MAP_1, MAP_2);
-        assertEquals("  key4=value4", result);
-    }
 
 }
