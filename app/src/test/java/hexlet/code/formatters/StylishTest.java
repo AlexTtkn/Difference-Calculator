@@ -10,7 +10,7 @@ import java.util.Map;
 
 class StylishTest {
     @Test
-    public void testAddSingToResult() {
+    void testAddSingToResult() {
         List<Map<String, Object>> list = new ArrayList<>();
 
         Map<String, Object> entry1 = new HashMap<>();

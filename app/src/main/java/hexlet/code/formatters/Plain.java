@@ -29,7 +29,7 @@ public class Plain {
                 .trim();
     }
 
-    private static String checkTypeOfValue(Object value) {
+    static String checkTypeOfValue(Object value) {
         if (value == null) {
             return null;
         }
