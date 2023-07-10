@@ -1,21 +1,14 @@
 package hexlet.code;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
-import java.util.Arrays;
-import java.util.Map;
-import java.util.List;
-import java.util.AbstractMap;
-
 
 import static hexlet.code.Differ.generate;
 import static hexlet.code.Differ.getStringOutOfPath;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class DifferTest {
     private static final Path RESOURCE_DIRECTORY_1 =
@@ -29,7 +22,7 @@ class DifferTest {
     private static final Path WRONG_PATH = Path.of("wrongPath");
 
     @Test
-    public void testGenerateValidJson() throws IOException {
+    void testGenerateValidJson() throws IOException {
         String expected = """
                 {
                  - follow : false
@@ -41,10 +34,11 @@ class DifferTest {
                 }""";
 
         String actual = generate(RESOURCE_DIRECTORY_1, RESOURCE_DIRECTORY_2, "stylish");
-        assertEquals(expected, actual);
+        Assertions.assertEquals(expected, actual);
     }
+
     @Test
-    public void testGenerateValidYaml() throws IOException {
+    void testGenerateValidYaml() throws IOException {
         String expected = """
                 {
                  - follow : false
@@ -56,17 +50,17 @@ class DifferTest {
                 }""";
 
         String actual = generate(RESOURCE_DIRECTORY_3, RESOURCE_DIRECTORY_4, "stylish");
-        assertEquals(expected, actual);
+        Assertions.assertEquals(expected, actual);
     }
 
     @Test
-    public void testGenerateInvalidPath() {
-        assertThrows(NoSuchFileException.class, () ->
+    void testGenerateInvalidPath() {
+        Assertions.assertThrows(NoSuchFileException.class, () ->
                 generate(WRONG_PATH, WRONG_PATH, null));
     }
 
     @Test
-    public void testGetStringOutOfPathValid() throws IOException {
+    void testGetStringOutOfPathValid() throws IOException {
         String expected = """
                 {
                   "host": "hexlet.io",
@@ -76,11 +70,11 @@ class DifferTest {
                 }
                 """;
         String actual = getStringOutOfPath(RESOURCE_DIRECTORY_1);
-        assertEquals(expected, actual);
+        Assertions.assertEquals(expected, actual);
     }
 
     @Test
-    public void testGetStringOutOfPathNotEqualsInfo() throws IOException {
+    void testGetStringOutOfPathNotEqualsInfo() throws IOException {
         String expected = """
                 {
                   "host": "hexlet.io",
@@ -90,9 +84,6 @@ class DifferTest {
                 }
                 """;
         String actual = getStringOutOfPath(RESOURCE_DIRECTORY_2);
-        assertNotEquals(expected, actual);
+        Assertions.assertNotEquals(expected, actual);
     }
-
-
-
 }
