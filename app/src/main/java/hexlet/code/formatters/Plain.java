@@ -15,11 +15,11 @@ public class Plain {
             switch (entry.get("changes").toString()) {
                 case "unchanged" -> LIST_OF_DIFFERENCE.add("\n");
                 case "changed" -> LIST_OF_DIFFERENCE.add(String.format("Property '%s' was updated. From %s to %s\n",
-                        entry.get("key"), checkTypeOfValue(entry.get("value1")), checkTypeOfValue(entry.get("value2"))));
+                        entry.get("key"), checkValueType(entry.get("value1")), checkValueType(entry.get("value2"))));
                 case "deleted" ->
                         LIST_OF_DIFFERENCE.add(String.format("Property '%s' was removed\n", entry.get("key")));
                 case "added" -> LIST_OF_DIFFERENCE.add(String.format("Property '%s' was added with value: %s\n",
-                        entry.get("key"), checkTypeOfValue(entry.get("value2"))));
+                        entry.get("key"), checkValueType(entry.get("value2"))));
                 default -> throw new RuntimeException("Unknown type!" + entry.get("changes"));
             }
         }
@@ -29,7 +29,7 @@ public class Plain {
                 .trim();
     }
 
-    static String checkTypeOfValue(Object value) {
+    static String checkValueType(Object value) {
         if (value == null) {
             return null;
         }

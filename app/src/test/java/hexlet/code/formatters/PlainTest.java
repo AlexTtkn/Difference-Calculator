@@ -1,6 +1,5 @@
 package hexlet.code.formatters;
 
-
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -44,15 +43,14 @@ class PlainTest {
         Object stringValue = "test";
         Object intValue = 10;
 
-        String arrayListResult = Plain.checkTypeOfValue(arrayListValue);
-        String linkedHashMapResult = Plain.checkTypeOfValue(linkedHashMapValue);
-        String stringResult = Plain.checkTypeOfValue(stringValue);
-        String intResult = Plain.checkTypeOfValue(intValue);
+        String arrayListResult = Plain.checkValueType(arrayListValue);
+        String linkedHashMapResult = Plain.checkValueType(linkedHashMapValue);
+        String stringResult = Plain.checkValueType(stringValue);
+        String intResult = Plain.checkValueType(intValue);
 
         Assertions.assertEquals(COMPLEX_VALUE, arrayListResult);
         Assertions.assertEquals(COMPLEX_VALUE, linkedHashMapResult);
         Assertions.assertEquals("'test'", stringResult);
         Assertions.assertEquals("10", intResult);
     }
-
 }
