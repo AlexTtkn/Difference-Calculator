@@ -12,12 +12,11 @@ public class GetDifference {
     private static final String ADDED = "added";
     private static final String DELETED = "deleted";
     private static Map<String, Object> map1 = new TreeMap<>();
-
     private static Map<String, Object> map2 = new TreeMap<>();
 
-    public static List<Map<String, Object>> mergeMapsToList(Map<String, Object> mapFirst, Map<String, Object> mapSecond) {
-        map1 = mapFirst;
-        map2 = mapSecond;
+    public static List<Map<String, Object>> mergeMapsToList(Map<String, Object> m1, Map<String, Object> m2) {
+        map1 = m1;
+        map2 = m2;
 
         return Stream.concat(map1.entrySet().stream(), map2.entrySet().stream())
                 .sorted(Map.Entry.comparingByKey())
@@ -26,7 +25,7 @@ public class GetDifference {
                 .toList();
     }
 
-    private static Map<String, Object> findDifference(Map.Entry<String, Object> entry) {
+    static Map<String, Object> findDifference(Map.Entry<String, Object> entry) {
         String key = entry.getKey();
         Object value = entry.getValue();
 
@@ -35,24 +34,24 @@ public class GetDifference {
         if (checkIfKeyHaveInBothMaps(key) && checkIfKeysAreEqual(key)) {
             map.put("key", key);
             map.put("value", value);
-            map.put("type", UNCHANGED);
+            map.put("changes", UNCHANGED);
             return map;
         } else if (checkIfKeyHaveInBothMaps(key) && !checkIfKeysAreEqual(key)) {
             map.put("key", key);
             map.put("value1", map1.get(key));
             map.put("value2", map2.get(key));
-            map.put("type", CHANGED);
+            map.put("changes", CHANGED);
             return map;
         }
         if (map1.containsKey(key)) {
             map.put("key", key);
             map.put("value1", map1.get(key));
-            map.put("type", DELETED);
+            map.put("changes", DELETED);
             return map;
         }
         map.put("key", key);
         map.put("value2", map2.get(key));
-        map.put("type", ADDED);
+        map.put("changes", ADDED);
         return map;
     }
 

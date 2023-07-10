@@ -4,12 +4,12 @@ import java.util.List;
 import java.util.Map;
 
 public class Stylish {
-    public static String addSingToResult(List<Map<String, Object>> list) {
+    public static String addFormatToResult(List<Map<String, Object>> list) {
         StringBuilder resultString = new StringBuilder();
         resultString.append("{").append("\n");
 
         for (Map<String, Object> entry : list) {
-            switch (entry.get("type").toString()) {
+            switch (entry.get("changes").toString()) {
                 case "unchanged" ->
                         resultString.append(String.format("   %s : %s\n", entry.get("key"), entry.get("value")));
                 case "changed" -> {
