@@ -32,9 +32,9 @@ public class App implements Callable<Object> {
     public Object call() {
         String result;
         try {
-            Path p1 = path1.toAbsolutePath().normalize();
-            Path p2 = path2.toAbsolutePath().normalize();
-            result = format.isEmpty() ? Differ.generate(p1, p2) : Differ.generate(p1, p2, format);
+            String p1 = path1.toAbsolutePath().normalize().toString();
+            String p2 = path2.toAbsolutePath().normalize().toString();
+            result = Differ.generate(p1, p2, format);
             System.out.println(result);
         } catch (Exception e) {
             throw new RuntimeException(e);
