@@ -10,6 +10,7 @@ import java.util.Map;
 
 class PlainTest {
     private static final String COMPLEX_VALUE = "[complex value]";
+    private static final int INT_FOR_TEST = 10;
 
     @Test
     void testAddFormatToResult() {
@@ -41,12 +42,11 @@ class PlainTest {
         Object arrayList = new ArrayList<>();
         Object linkedHashMap = new LinkedHashMap<>();
         Object string = "test";
-        Object intValue = 10; // Magic number
 
         String arrayListResult = Plain.checkValueType(arrayList);
         String linkedHashMapResult = Plain.checkValueType(linkedHashMap);
         String stringResult = Plain.checkValueType(string);
-        String intResult = Plain.checkValueType(intValue);
+        String intResult = Plain.checkValueType(INT_FOR_TEST);
 
         Assertions.assertEquals(COMPLEX_VALUE, arrayListResult);
         Assertions.assertEquals(COMPLEX_VALUE, linkedHashMapResult);
