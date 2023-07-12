@@ -11,15 +11,15 @@ public class Stylish {
         for (Map<String, Object> entry : list) {
             switch (entry.get("changes").toString()) {
                 case "unchanged" ->
-                        resultString.append(String.format("    %s : %s\n", entry.get("key"), entry.get("value")));
+                        resultString.append(String.format("    %s: %s\n", entry.get("key"), entry.get("value")));
                 case "changed" -> {
-                    resultString.append(String.format("  - %s : %s\n", entry.get("key"), entry.get("value1")));
-                    resultString.append(String.format("  + %s : %s\n", entry.get("key"), entry.get("value2")));
+                    resultString.append(String.format("  - %s: %s\n", entry.get("key"), entry.get("value1")));
+                    resultString.append(String.format("  + %s: %s\n", entry.get("key"), entry.get("value2")));
                 }
                 case "deleted" ->
-                        resultString.append(String.format("  - %s : %s\n", entry.get("key"), entry.get("value1")));
+                        resultString.append(String.format("  - %s: %s\n", entry.get("key"), entry.get("value1")));
                 case "added" ->
-                        resultString.append(String.format("  + %s : %s\n", entry.get("key"), entry.get("value2")));
+                        resultString.append(String.format("  + %s: %s\n", entry.get("key"), entry.get("value2")));
                 default -> System.out.println("Something wrong");
             }
         }

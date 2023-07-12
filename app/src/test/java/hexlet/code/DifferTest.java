@@ -22,12 +22,12 @@ class DifferTest {
     void testGenerateValidJson() throws IOException {
         String expected = """
                 {
-                 - follow : false
-                   host : hexlet.io
-                 - proxy : 123.234.53.22
-                 - timeout : 50
-                 + timeout : 20
-                 + verbose : true
+                  - follow: false
+                    host: hexlet.io
+                  - proxy: 123.234.53.22
+                  - timeout: 50
+                  + timeout: 20
+                  + verbose: true
                 }""";
 
         String actual = Differ.generate(RESOURCE_DIRECTORY_1, RESOURCE_DIRECTORY_2, "stylish");
@@ -38,12 +38,12 @@ class DifferTest {
     void testGenerateValidYaml() throws IOException {
         String expected = """
                 {
-                 - follow : false
-                   host : hexlet.io
-                 - proxy : 123.234.53.22
-                 - timeout : 50
-                 + timeout : 20
-                 + verbose : true
+                  - follow: false
+                    host: hexlet.io
+                  - proxy: 123.234.53.22
+                  - timeout: 50
+                  + timeout: 20
+                  + verbose: true
                 }""";
 
         String actual = Differ.generate(RESOURCE_DIRECTORY_3, RESOURCE_DIRECTORY_4, "stylish");

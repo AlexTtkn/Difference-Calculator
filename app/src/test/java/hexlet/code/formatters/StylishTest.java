@@ -27,11 +27,11 @@ class StylishTest {
 
         String expected = """
                 {
-                   key1 : value1
-                 - key2 : oldValue
-                 + key2 : newValue
-                 - key3 : value3
-                 + key4 : value4
+                    key1: value1
+                  - key2: oldValue
+                  + key2: newValue
+                  - key3: value3
+                  + key4: value4
                 }""";
 
         String actual = Stylish.addFormatToResult(list);
