@@ -41,7 +41,7 @@ class PlainTest {
         Object arrayList = new ArrayList<>();
         Object linkedHashMap = new LinkedHashMap<>();
         Object string = "test";
-        Object intValue = 10;
+        Object intValue = 10; // Magic number
 
         String arrayListResult = Plain.checkValueType(arrayList);
         String linkedHashMapResult = Plain.checkValueType(linkedHashMap);

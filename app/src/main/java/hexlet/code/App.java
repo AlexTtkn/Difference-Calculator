@@ -2,6 +2,7 @@ package hexlet.code;
 
 import picocli.CommandLine;
 
+import java.io.IOException;
 import java.nio.file.Path;
 import java.util.concurrent.Callable;
 
@@ -36,9 +37,10 @@ public class App implements Callable<Object> {
             String p2 = path2.toAbsolutePath().normalize().toString();
             result = format.isEmpty() ? Differ.generate(p1, p2) : Differ.generate(p1, p2, format);
             System.out.println(result);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
+            return result;
+        } catch (IOException | RuntimeException e) {
+            e.printStackTrace();
+            return new RuntimeException(e);
         }
-        return result;
     }
 }
