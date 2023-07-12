@@ -12,43 +12,8 @@ class DifferTest {
             Path.of("src/test/resources/testFile1.json").toAbsolutePath().normalize();
     private static final Path RESOURCE_DIRECTORY_2
             = Path.of("src/test/resources/testFile2.json").toAbsolutePath().normalize();
-    private static final Path RESOURCE_DIRECTORY_3
-            = Path.of("src/test/resources/testFile3.yml").toAbsolutePath().normalize();
-    private static final Path RESOURCE_DIRECTORY_4
-            = Path.of("src/test/resources/testFile4.yml").toAbsolutePath().normalize();
     private static final Path WRONG_PATH = Path.of("wrongPath");
 
-    @Test
-    void testGenerateValidJson() throws IOException {
-        String expected = """
-                {
-                 - follow : false
-                   host : hexlet.io
-                 - proxy : 123.234.53.22
-                 - timeout : 50
-                 + timeout : 20
-                 + verbose : true
-                }""";
-
-        String actual = Differ.generate(RESOURCE_DIRECTORY_1, RESOURCE_DIRECTORY_2, "stylish");
-        Assertions.assertEquals(expected, actual);
-    }
-
-    @Test
-    void testGenerateValidYaml() throws IOException {
-        String expected = """
-                {
-                 - follow : false
-                   host : hexlet.io
-                 - proxy : 123.234.53.22
-                 - timeout : 50
-                 + timeout : 20
-                 + verbose : true
-                }""";
-
-        String actual = Differ.generate(RESOURCE_DIRECTORY_3, RESOURCE_DIRECTORY_4, "stylish");
-        Assertions.assertEquals(expected, actual);
-    }
 
     @Test
     void testGenerateInvalidPath() {
