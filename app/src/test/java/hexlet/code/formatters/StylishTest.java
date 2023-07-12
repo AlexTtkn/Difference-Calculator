@@ -4,7 +4,6 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -13,31 +12,19 @@ class StylishTest {
     void testAddSingToResult() {
         List<Map<String, Object>> list = new ArrayList<>();
 
-        Map<String, Object> entry1 = new HashMap<>();
-        entry1.put("changes", "unchanged");
-        entry1.put("key", "key1");
-        entry1.put("value", "value1");
+        Map<String, Object> m1 =
+                Map.of("changes", "unchanged", "key", "key1", "value", "value1");
+        Map<String, Object> m2 =
+                Map.of("changes", "changed", "key", "key2", "value1", "oldValue", "value2", "newValue");
+        Map<String, Object> m3 =
+                Map.of("changes", "deleted", "key", "key3", "value1", "value3");
+        Map<String, Object> m4 =
+                Map.of("changes", "added", "key", "key4", "value2", "value4");
 
-        Map<String, Object> entry2 = new HashMap<>();
-        entry2.put("changes", "changed");
-        entry2.put("key", "key2");
-        entry2.put("value1", "oldValue");
-        entry2.put("value2", "newValue");
-
-        Map<String, Object> entry3 = new HashMap<>();
-        entry3.put("changes", "deleted");
-        entry3.put("key", "key3");
-        entry3.put("value1", "value3");
-
-        Map<String, Object> entry4 = new HashMap<>();
-        entry4.put("changes", "added");
-        entry4.put("key", "key4");
-        entry4.put("value2", "value4");
-
-        list.add(entry1);
-        list.add(entry2);
-        list.add(entry3);
-        list.add(entry4);
+        list.add(m1);
+        list.add(m2);
+        list.add(m3);
+        list.add(m4);
 
         String expected = """
                 {
