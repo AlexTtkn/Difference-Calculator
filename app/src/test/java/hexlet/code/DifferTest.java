@@ -14,7 +14,6 @@ class DifferTest {
             = Path.of("src/test/resources/testFile2.json").toAbsolutePath().normalize();
     private static final Path WRONG_PATH = Path.of("wrongPath");
 
-
     @Test
     void testGenerateInvalidPath() {
         Assertions.assertThrows(NoSuchFileException.class, () ->
