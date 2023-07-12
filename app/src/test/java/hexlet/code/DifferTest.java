@@ -135,20 +135,6 @@ class DifferTest {
         Assertions.assertEquals(expected, actual);
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     @Test
     void testGenerateInvalidPath() {
         Assertions.assertThrows(NoSuchFileException.class, () ->
