@@ -28,6 +28,9 @@ public class Differ {
         }
         return null;
     }
+    public static String generate(String path1, String path2) throws IOException {
+        return generate(path1, path2, "stylish");
+    }
 
     static boolean checkIfFormatsEquals(String format1, String format2) {
         return format1.equals(format2);

@@ -34,7 +34,7 @@ public class App implements Callable<Object> {
         try {
             String p1 = path1.toAbsolutePath().normalize().toString();
             String p2 = path2.toAbsolutePath().normalize().toString();
-            result = Differ.generate(p1, p2, format);
+            result = format.isEmpty() ? Differ.generate(p1, p2) : Differ.generate(p1, p2, format);
             System.out.println(result);
         } catch (Exception e) {
             throw new RuntimeException(e);
