@@ -11,7 +11,6 @@ class StylishTest {
     @Test
     void testAddSingToResult() {
         List<Map<String, Object>> list = new ArrayList<>();
-
         Map<String, Object> m1 =
                 Map.of("changes", "unchanged", "key", "key1", "value", "value1");
         Map<String, Object> m2 =
