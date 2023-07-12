@@ -19,7 +19,7 @@ class DifferTest {
     private static final String WRONG_PATH = Path.of("wrongPath").toString();
 
     @Test
-    void testGenerateValidJson() throws IOException {
+    void testGenerateValidJsonStylish() throws IOException {
         String expected = """
                 {
                   - follow: false
@@ -35,7 +35,7 @@ class DifferTest {
     }
 
     @Test
-    void testGenerateValidYaml() throws IOException {
+    void testGenerateValidYamlStylish() throws IOException {
         String expected = """
                 {
                   - follow: false
@@ -49,6 +49,105 @@ class DifferTest {
         String actual = Differ.generate(RESOURCE_DIRECTORY_3, RESOURCE_DIRECTORY_4, "stylish");
         Assertions.assertEquals(expected, actual);
     }
+
+    @Test
+    void testGenerateValidJsonPlain() throws IOException {
+        String expected = """
+                Property 'follow' was removed
+                Property 'proxy' was removed
+                Property 'timeout' was updated. From 50 to 20
+                Property 'verbose' was added with value: true""";
+
+        String actual = Differ.generate(RESOURCE_DIRECTORY_1, RESOURCE_DIRECTORY_2, "plain");
+        Assertions.assertEquals(expected, actual);
+    }
+
+    @Test
+    void testGenerateValidYamlPlain() throws IOException {
+        String expected = """
+                Property 'follow' was removed
+                Property 'proxy' was removed
+                Property 'timeout' was updated. From 50 to 20
+                Property 'verbose' was added with value: true""";
+
+        String actual = Differ.generate(RESOURCE_DIRECTORY_3, RESOURCE_DIRECTORY_4, "plain");
+        Assertions.assertEquals(expected, actual);
+    }
+
+    @Test
+    void testGenerateValidJsonJson() throws IOException {
+        String expected = """
+                [ {
+                  "changes" : "deleted",
+                  "key" : "follow",
+                  "value1" : false
+                }, {
+                  "changes" : "unchanged",
+                  "key" : "host",
+                  "value" : "hexlet.io"
+                }, {
+                  "changes" : "deleted",
+                  "key" : "proxy",
+                  "value1" : "123.234.53.22"
+                }, {
+                  "changes" : "changed",
+                  "key" : "timeout",
+                  "value1" : 50,
+                  "value2" : 20
+                }, {
+                  "changes" : "added",
+                  "key" : "verbose",
+                  "value2" : true
+                } ]""";
+
+        String actual = Differ.generate(RESOURCE_DIRECTORY_1, RESOURCE_DIRECTORY_2, "json");
+        System.out.println(actual);
+        Assertions.assertEquals(expected, actual);
+    }
+
+    @Test
+    void testGenerateValidYamlJson() throws IOException {
+        String expected = """
+                [ {
+                  "changes" : "deleted",
+                  "key" : "follow",
+                  "value1" : false
+                }, {
+                  "changes" : "unchanged",
+                  "key" : "host",
+                  "value" : "hexlet.io"
+                }, {
+                  "changes" : "deleted",
+                  "key" : "proxy",
+                  "value1" : "123.234.53.22"
+                }, {
+                  "changes" : "changed",
+                  "key" : "timeout",
+                  "value1" : 50,
+                  "value2" : 20
+                }, {
+                  "changes" : "added",
+                  "key" : "verbose",
+                  "value2" : true
+                } ]""";
+
+        String actual = Differ.generate(RESOURCE_DIRECTORY_3, RESOURCE_DIRECTORY_4, "json");
+        Assertions.assertEquals(expected, actual);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     @Test
     void testGenerateInvalidPath() {
