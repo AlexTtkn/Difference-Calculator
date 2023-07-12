@@ -20,7 +20,7 @@ public class Plain {
                         LIST_OF_DIFFERENCE.add(String.format("Property '%s' was removed\n", entry.get("key")));
                 case "added" -> LIST_OF_DIFFERENCE.add(String.format("Property '%s' was added with value: %s\n",
                         entry.get("key"), checkValueType(entry.get("value2"))));
-                default -> throw new RuntimeException("Unknown type!" + entry.get("changes"));
+                default -> throw new RuntimeException("Something wrong");
             }
         }
         return LIST_OF_DIFFERENCE.stream()
