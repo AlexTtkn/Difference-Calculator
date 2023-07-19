@@ -101,7 +101,6 @@ class DifferTest {
                 } ]""";
 
         String actual = Differ.generate(RESOURCE_DIRECTORY_1, RESOURCE_DIRECTORY_2, "json");
-        System.out.println(actual);
         Assertions.assertEquals(expected, actual);
     }
 
