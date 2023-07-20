@@ -3,13 +3,16 @@ package hexlet.code.formatters;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 class StylishTest {
     @Test
-    void testAddSingToResult() {
+    void testAddSingToResult() throws IOException {
         List<Map<String, Object>> list = new ArrayList<>();
         Map<String, Object> m1 =
                 Map.of("changes", "unchanged", "key", "key1", "value", "value1");
@@ -25,15 +28,8 @@ class StylishTest {
         list.add(m3);
         list.add(m4);
 
-        String expected = """
-                {
-                    key1: value1
-                  - key2: oldValue
-                  + key2: newValue
-                  - key3: value3
-                  + key4: value4
-                }""";
-
+        String path = "src/test/resources/fixtures/formatters.fixtures/expected_stylish";
+        String expected = Files.readString(Paths.get(path)).replaceAll("\\r\\n", "\n");
         String actual = Stylish.addFormatToResult(list);
         Assertions.assertEquals(expected, actual);
     }

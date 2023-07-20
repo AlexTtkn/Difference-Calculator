@@ -3,6 +3,9 @@ package hexlet.code.formatters;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -13,7 +16,7 @@ class PlainTest {
     private static final int INT_FOR_TEST = 10;
 
     @Test
-    void testAddFormatToResult() {
+    void testAddFormatToResult() throws IOException {
         List<Map<String, Object>> list = new ArrayList<>();
         Map<String, Object> unchanged =
                 Map.of("changes", "unchanged");
@@ -29,12 +32,11 @@ class PlainTest {
         list.add(deleted);
         list.add(added);
 
-        String result = Plain.addFormatToResult(list);
-        String expected = """
-                Property 'property1' was updated. From 'oldValue' to 'newValue'
-                Property 'property2' was removed
-                Property 'property3' was added with value: 'newValue'""";
-        Assertions.assertEquals(expected, result);
+
+        String path = "src/test/resources/fixtures/formatters.fixtures/expected_plain";
+        String expected = Files.readString(Paths.get(path)).replaceAll("\\r\\n", "\n");
+        String actual = Plain.addFormatToResult(list);
+        Assertions.assertEquals(expected, actual);
     }
 
     @Test
