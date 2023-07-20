@@ -1,0 +1,3 @@
+Property 'property1' was updated. From 'oldValue' to 'newValue'
+Property 'property2' was removed
+Property 'property3' was added with value: 'newValue'
