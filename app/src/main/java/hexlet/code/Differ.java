@@ -42,6 +42,6 @@ public class Differ {
         for (String line : lines) {
             RESULT_STRING.append(line).append("\n");
         }
-        return RESULT_STRING.toString();
+        return RESULT_STRING.toString().trim();
     }
 }
