@@ -25,13 +25,12 @@ class DifferTest {
 
     @ParameterizedTest
     @CsvSource({
-        "expected_json_with_inner_structure_stylish, testFile5.json, testFile6.json, stylish",
-        "expected_json_yml_stylish, testFile3.yml, testFile4.yml, stylish",
-        "expected_json_with_inner_structure_plain, testFile5.json, testFile6.json, plain",
-        "expected_json_yml_plain, testFile3.yml, testFile4.yml, plain",
-        "expected_json_yml_json, testFile1.json, testFile2.json, json",
-        "expected_json_yml_json, testFile3.yml, testFile4.yml, json",
-
+        "expected_json_yml_with_inner_structure_stylish, testFile1.json, testFile2.json, stylish",
+        "expected_json_yml_with_inner_structure_stylish, testFile3.yml, testFile4.yml, stylish",
+        "expected_json_yml_with_inner_structure_plain, testFile1.json, testFile2.json, plain",
+        "expected_json_yml_with_inner_structure_plain, testFile3.yml, testFile4.yml, plain",
+        "expected_json_yml_with_inner_structure_json, testFile1.json, testFile2.json, json",
+        "expected_json_yml_with_inner_structure_json, testFile3.yml, testFile4.yml, json"
     })
     void globalTest(String fixture, String testFile1, String testFile2, String format) throws IOException {
         String path = createPath(ROOT_FOR_FIXTURES, fixture);
@@ -45,8 +44,8 @@ class DifferTest {
 
     @ParameterizedTest
     @CsvSource({
-        "expected_json_yml_stylish, testFile1.json, testFile2.json",
-        "expected_json_yml_stylish, testFile3.yml, testFile4.yml"
+        "expected_json_yml_with_inner_structure_stylish, testFile1.json, testFile2.json",
+        "expected_json_yml_with_inner_structure_stylish, testFile3.yml, testFile4.yml"
     })
     void globalTest2(String fixture, String testFile1, String testFile2) throws IOException {
         String path = createPath(ROOT_FOR_FIXTURES, fixture);

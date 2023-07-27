@@ -19,13 +19,13 @@ class PlainTest {
     void testAddFormatToResult() throws IOException {
         List<Map<String, Object>> list = new ArrayList<>();
         Map<String, Object> unchanged =
-                Map.of("changes", "unchanged");
+                Map.of("type", "unchanged");
         Map<String, Object> changed =
-                Map.of("changes", "changed", "key", "property1", "value1", "oldValue", "value2", "newValue");
+                Map.of("type", "changed", "key", "property1", "value1", "oldValue", "value2", "newValue");
         Map<String, Object> deleted =
-                Map.of("changes", "deleted", "key", "property2");
+                Map.of("type", "deleted", "key", "property2");
         Map<String, Object> added =
-                Map.of("changes", "added", "key", "property3", "value2", "newValue");
+                Map.of("type", "added", "key", "property3", "value2", "newValue");
 
         list.add(unchanged);
         list.add(changed);
@@ -35,6 +35,7 @@ class PlainTest {
 
         String path = "src/test/resources/fixtures/formatters.fixtures/expected_plain";
         String expected = Files.readString(Paths.get(path)).replaceAll("\\r\\n", "\n");
+        System.out.println(expected);
         String actual = Plain.addFormatToResult(list);
         Assertions.assertEquals(expected, actual);
     }

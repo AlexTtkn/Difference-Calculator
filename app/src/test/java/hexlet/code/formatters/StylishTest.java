@@ -15,13 +15,13 @@ class StylishTest {
     void testAddSingToResult() throws IOException {
         List<Map<String, Object>> list = new ArrayList<>();
         Map<String, Object> m1 =
-                Map.of("changes", "unchanged", "key", "key1", "value", "value1");
+                Map.of("type", "unchanged", "key", "key1", "value", "value1");
         Map<String, Object> m2 =
-                Map.of("changes", "changed", "key", "key2", "value1", "oldValue", "value2", "newValue");
+                Map.of("type", "changed", "key", "key2", "value1", "oldValue", "value2", "newValue");
         Map<String, Object> m3 =
-                Map.of("changes", "deleted", "key", "key3", "value1", "value3");
+                Map.of("type", "deleted", "key", "key3", "value1", "value3");
         Map<String, Object> m4 =
-                Map.of("changes", "added", "key", "key4", "value2", "value4");
+                Map.of("type", "added", "key", "key4", "value2", "value4");
 
         list.add(m1);
         list.add(m2);

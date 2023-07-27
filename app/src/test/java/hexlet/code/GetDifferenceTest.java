@@ -3,7 +3,6 @@ package hexlet.code;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -17,11 +16,11 @@ class GetDifferenceTest {
 
         List<Map<String, Object>> expected = new ArrayList<>();
         Map<String, Object> m1 =
-                Map.of("key", "key1", "value1", "value1", "value2", "value3", "changes", "changed");
+                Map.of("key", "key1", "value1", "value1", "value2", "value3", "type", "changed");
         Map<String, Object> m2 =
-                Map.of("key", "key2", "value1", "value2", "changes", "deleted");
+                Map.of("key", "key2", "value1", "value2", "type", "deleted");
         Map<String, Object> m3 =
-                Map.of("key", "key3", "value2", "value4", "changes", "added");
+                Map.of("key", "key3", "value2", "value4", "type", "added");
 
         expected.add(m1);
         expected.add(m2);
