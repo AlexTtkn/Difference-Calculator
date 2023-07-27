@@ -14,7 +14,7 @@ public class Formatter {
             case "stylish" -> Stylish.addFormatToResult(list);
             case "plain" -> Plain.addFormatToResult(list);
             case "json" -> Json.addFormatToResult(list);
-            default -> "Wrong format";
+            default -> throw new RuntimeException("Wrong format");
         };
     }
 }
