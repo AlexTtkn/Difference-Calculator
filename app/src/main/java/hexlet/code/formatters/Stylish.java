@@ -9,7 +9,7 @@ public class Stylish {
         resultString.append("{").append("\n");
 
         for (Map<String, Object> entry : list) {
-            switch (entry.get("changes").toString()) {
+            switch (entry.get("type").toString()) {
                 case "unchanged" ->
                         resultString.append(String.format("    %s: %s\n", entry.get("key"), entry.get("value")));
                 case "changed" -> {

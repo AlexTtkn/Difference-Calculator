@@ -3,7 +3,6 @@ package hexlet.code;
 import picocli.CommandLine;
 
 import java.io.IOException;
-import java.nio.file.Path;
 import java.util.concurrent.Callable;
 
 @CommandLine.Command(name = "gendiff",
@@ -19,11 +18,11 @@ public final class App implements Callable<Object> {
 
     @CommandLine.Parameters(paramLabel = "filepath1",
             description = "path to first file")
-    private Path path1;
+    private String path1;
 
     @CommandLine.Parameters(paramLabel = "filepath2",
             description = "path to second file")
-    private Path path2;
+    private String path2;
 
     public static void main(String[] args) {
         new CommandLine(new App()).execute(args);
@@ -33,9 +32,7 @@ public final class App implements Callable<Object> {
     public Object call() {
         String result;
         try {
-            String p1 = path1.toAbsolutePath().normalize().toString();
-            String p2 = path2.toAbsolutePath().normalize().toString();
-            result = format.isEmpty() ? Differ.generate(p1, p2) : Differ.generate(p1, p2, format);
+            result = format.isEmpty() ? Differ.generate(path1, path2) : Differ.generate(path1, path2, format);
             System.out.println(result);
             return result;
         } catch (IOException | RuntimeException e) {

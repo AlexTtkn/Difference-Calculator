@@ -8,11 +8,10 @@ import java.util.List;
 import java.util.Map;
 
 public class Json {
-    private static final ObjectMapper MAPPER = new ObjectMapper();
-
     public static String addFormatToResult(List<Map<String, Object>> list) throws JsonProcessingException {
         StringBuilder result = new StringBuilder();
-        ObjectWriter writer = MAPPER.writerWithDefaultPrettyPrinter();
+        ObjectMapper mapper = new ObjectMapper();
+        ObjectWriter writer = mapper.writerWithDefaultPrettyPrinter();
         return result.append(writer.writeValueAsString(list)).append("\n").toString().trim();
     }
 }

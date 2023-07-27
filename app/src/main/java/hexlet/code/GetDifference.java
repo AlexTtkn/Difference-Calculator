@@ -34,24 +34,24 @@ public class GetDifference {
         if (checkIfKeyHaveInBothMaps(key) && checkIfKeysAreEqual(key)) {
             map.put("key", key);
             map.put("value", value);
-            map.put("changes", UNCHANGED);
+            map.put("type", UNCHANGED);
             return map;
         } else if (checkIfKeyHaveInBothMaps(key) && !checkIfKeysAreEqual(key)) {
             map.put("key", key);
             map.put("value1", map1.get(key));
             map.put("value2", map2.get(key));
-            map.put("changes", CHANGED);
+            map.put("type", CHANGED);
             return map;
         }
         if (map1.containsKey(key)) {
             map.put("key", key);
             map.put("value1", map1.get(key));
-            map.put("changes", DELETED);
+            map.put("type", DELETED);
             return map;
         }
         map.put("key", key);
         map.put("value2", map2.get(key));
-        map.put("changes", ADDED);
+        map.put("type", ADDED);
         return map;
     }
 
