@@ -9,8 +9,7 @@ class ParserTest {
     @Test
     void testGetInfoAsMapWithInvalidFormat() {
         String info = "key: value";
-        Assertions.assertThrows(RuntimeException.class, () -> {
-            Parser.getInfoAsMap(info, WRONG_FORMAT);
-        });
+        Assertions.assertThrows(RuntimeException.class, () ->
+                Parser.getInfoAsMap(info, WRONG_FORMAT));
     }
 }
