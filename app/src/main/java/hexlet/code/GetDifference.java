@@ -7,10 +7,6 @@ import java.util.TreeMap;
 import java.util.stream.Stream;
 
 public class GetDifference {
-    private static final String CHANGED = "changed";
-    private static final String UNCHANGED = "unchanged";
-    private static final String ADDED = "added";
-    private static final String DELETED = "deleted";
     private static Map<String, Object> map1 = new TreeMap<>();
     private static Map<String, Object> map2 = new TreeMap<>();
 
@@ -26,6 +22,11 @@ public class GetDifference {
     }
 
     static Map<String, Object> findDifference(Map.Entry<String, Object> entry) {
+        String changed = "changed";
+        String unchanged = "unchanged";
+        String added = "added";
+        String deleted = "deleted";
+
         String key = entry.getKey();
         Object value = entry.getValue();
 
@@ -34,24 +35,24 @@ public class GetDifference {
         if (checkIfKeyHaveInBothMaps(key) && checkIfKeysAreEqual(key)) {
             map.put("key", key);
             map.put("value", value);
-            map.put("type", UNCHANGED);
+            map.put("type", unchanged);
             return map;
         } else if (checkIfKeyHaveInBothMaps(key) && !checkIfKeysAreEqual(key)) {
             map.put("key", key);
             map.put("value1", map1.get(key));
             map.put("value2", map2.get(key));
-            map.put("type", CHANGED);
+            map.put("type", changed);
             return map;
         }
         if (map1.containsKey(key)) {
             map.put("key", key);
             map.put("value1", map1.get(key));
-            map.put("type", DELETED);
+            map.put("type", deleted);
             return map;
         }
         map.put("key", key);
         map.put("value2", map2.get(key));
-        map.put("type", ADDED);
+        map.put("type", added);
         return map;
     }
 
