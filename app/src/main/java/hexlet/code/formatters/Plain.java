@@ -12,10 +12,10 @@ public class Plain {
             switch (entry.get("type").toString()) {
                 case "unchanged" -> listOfDifference.add("\n");
                 case "changed" -> listOfDifference.add(String.format("Property '%s' was updated. From %s to %s\n",
-                        entry.get("key"), checkValueType(entry.get("value1")), checkValueType(entry.get("value2"))));
+                        entry.get("key"), getValue(entry.get("value1")), getValue(entry.get("value2"))));
                 case "deleted" -> listOfDifference.add(String.format("Property '%s' was removed\n", entry.get("key")));
                 case "added" -> listOfDifference.add(String.format("Property '%s' was added with value: %s\n",
-                        entry.get("key"), checkValueType(entry.get("value2"))));
+                        entry.get("key"), getValue(entry.get("value2"))));
                 default -> throw new RuntimeException("Something wrong");
             }
         }
@@ -25,7 +25,7 @@ public class Plain {
                 .trim();
     }
 
-    static String checkValueType(Object value) {
+    static String getValue(Object value) {
         String complexValue = "[complex value]";
         if (value == null) {
             return null;

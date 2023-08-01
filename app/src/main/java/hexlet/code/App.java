@@ -32,7 +32,7 @@ public final class App implements Callable<Object> {
     public Object call() {
         String result;
         try {
-            result = format.isEmpty() ? Differ.generate(path1, path2) : Differ.generate(path1, path2, format);
+            result = Differ.generate(path1, path2, format);
             System.out.println(result);
             return result;
         } catch (IOException | RuntimeException e) {

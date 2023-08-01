@@ -22,9 +22,4 @@ public class Parser {
             default -> throw new RuntimeException("Wrong format");
         };
     }
-
-    public static String getFormat(String format) {
-        int dotInPath = format.lastIndexOf(".") + 1;
-        return format.substring(dotInPath);
-    }
 }

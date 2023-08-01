@@ -11,14 +11,14 @@ import java.util.TreeMap;
 
 public class Differ {
     public static String generate(String path1, String path2, String format) throws IOException {
-        String format1 = Parser.getFormat(path1); // заданынй путь
-        String format2 = Parser.getFormat(path2);
+        String format1 = getFormat(path1); // заданынй путь
+        String format2 = getFormat(path2);
 
         if (!checkIfFormatsEquals(format1, format2)) {
             System.out.println("Your files have a different extension");
         } else {
-            String stringOutOfPath1 = getStringOutOfPath(path1);
-            String stringOutOfPath2 = getStringOutOfPath(path2);
+            String stringOutOfPath1 = getContent(path1);
+            String stringOutOfPath2 = getContent(path2);
             Map<String, Object> map1 = new TreeMap<>(Parser.getInfoAsMap(stringOutOfPath1, format1));
             Map<String, Object> map2 = new TreeMap<>(Parser.getInfoAsMap(stringOutOfPath2, format2));
             List<Map<String, Object>> listOfDifference = GetDifference.mergeMapsToList(map1, map2);
@@ -30,19 +30,21 @@ public class Differ {
     public static String generate(String path1, String path2) throws IOException {
         return generate(path1, path2, "stylish");
     }
+    public static String getFormat(String filePath) {
+        int dotInPath = filePath.lastIndexOf('.');
+        return dotInPath > 0 ? filePath.substring(dotInPath + 1) : "";
+    }
 
     private static boolean checkIfFormatsEquals(String format1, String format2) {
         return format1.equals(format2);
     }
 
-    private static String getStringOutOfPath(String path) throws IOException {
+    private static String getContent(String path) throws IOException {
         Path absoulutePath = createAbsoulutePath(path);
         StringBuilder resultString = new StringBuilder();
         resultString.delete(0, resultString.length());
-        List<String> lines = Files.readAllLines(absoulutePath);
-        for (String line : lines) {
-            resultString.append(line).append("\n");
-        }
+        String line = Files.readString(absoulutePath);
+        resultString.append(line);
         return resultString.toString().trim();
     }
 
