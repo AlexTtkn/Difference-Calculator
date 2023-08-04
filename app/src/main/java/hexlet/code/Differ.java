@@ -41,11 +41,7 @@ public class Differ {
 
     private static String getContent(String path) throws IOException {
         Path absoulutePath = createAbsoulutePath(path);
-        StringBuilder resultString = new StringBuilder();
-        resultString.delete(0, resultString.length());
-        String line = Files.readString(absoulutePath);
-        resultString.append(line);
-        return resultString.toString().trim();
+        return Files.readString(absoulutePath).trim();
     }
 
     private static Path createAbsoulutePath(String path) {
