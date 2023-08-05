@@ -11,7 +11,7 @@ import java.util.TreeMap;
 
 public class Differ {
     public static String generate(String path1, String path2, String format) throws IOException {
-        String format1 = getFormat(path1); // заданынй путь
+        String format1 = getFormat(path1);
         String format2 = getFormat(path2);
 
         if (!checkIfFormatsEquals(format1, format2)) {
