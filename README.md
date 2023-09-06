@@ -24,7 +24,7 @@ For instance:
 
 
 
-## Examples
+## Examples:
 [![Json](https://i.postimg.cc/9Qjp4SwZ/Json.jpg)](https://asciinema.org/a/PK8gaBfYhOH05eqsCjFosQb3F)
 
 [![Yaml](https://i.postimg.cc/g2kxBqf1/Yaml.jpg)](https://asciinema.org/a/c41LkJHRvcMkwbXVdk3u9SdOa)
